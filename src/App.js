@@ -32,7 +32,7 @@ class App extends Component {
     if (event !== "barbarian") {
       return this.state.barbarianCount;
     }
-    if (this.state.barbarianCount == MAX_BARB) {
+    if (this.state.barbarianCount === MAX_BARB) {
       speak("barbarians attack!");
       return 0;
     }
@@ -43,44 +43,57 @@ class App extends Component {
     const newd2 = getRandomInt(6);
     const event = eventroll();
 
-    speak(String(newd1 + newd2));
-    if (event === "barbarian") {
-      speak(event);
-    } else {
-      speak(event + " " + newd2);
-    }
     const newCount = this.newBarbCount(event);
 
-    this.setState({
+    const newState = {
       dice1: newd1,
       dice2: newd2,
       event: event,
       barbarianCount: newCount
-    });
+    };
+
+    this.setState(newState);
+    this.speakState(newState);
+  };
+  speakState = state => {
+    const { dice1, dice2, event } = state;
+    speak(String(dice1 + dice2));
+    if (event === "barbarian") {
+      speak(event);
+    } else {
+      speak(event + " " + dice2);
+    }
   };
   resetBarbarians = () => {
     this.setState({ barbarianCount: 0 });
     speak("resetting barbarians");
   };
   render() {
+    const { dice1, dice2, event } = this.state;
+    const eventResult =
+      event === "barbarian" ? "barbarian" : `${event} ${dice2}`;
     return (
       <div className="App">
         <div className="clicktarget" onClick={this.onClick}>
-          <div className="wrapper">
-            <div className="dice1">
-              <span>{this.state.dice1}</span>
+          <div className="clicktargettop">
+            <div className="wrapper">
+              <div className="dice1">
+                <span>{this.state.dice1}</span>
+              </div>
+              <div className="dice2">
+                <span>{this.state.dice2}</span>
+              </div>
+              <div className={`diceevent ${this.state.event}`}>
+                <span>{this.state.event}</span>
+              </div>
             </div>
-            <div className="dice2">
-              <span>{this.state.dice2}</span>
-            </div>
-            <div className="dicebarb">
-              <span>{this.state.event}</span>
-            </div>
+            <span className="totalresult"> {dice1 + dice2} </span>
+            <span className={`eventdiceresult ${event}`}> {eventResult} </span>
           </div>
+          <span className="barbarianstate">
+            Barbarians: {this.state.barbarianCount} / {MAX_BARB + 1}{" "}
+          </span>
         </div>
-        <span className="barbarianstate">
-          Barbarians: {this.state.barbarianCount} / {MAX_BARB + 1}{" "}
-        </span>
         <div className="resetbarb" onClick={this.resetBarbarians}>
           {" "}
           Reset Barbarians{" "}

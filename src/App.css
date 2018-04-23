@@ -7,7 +7,9 @@
   flex-direction: row;
 }
 
-.dice1, .dice2, .dicebarb {
+.dice1,
+.dice2,
+.diceevent {
   width: 100px;
   height: 100px;
   border: 1px solid black;
@@ -26,26 +28,59 @@
   background-color: red;
 }
 
-.dicebarb > span {
+.diceevent > span {
   font-size: 14 px;
 }
-.dice1 > span, .dice2 > span {
+.dice1 > span,
+.dice2 > span {
   font-size: 24px;
 }
 
 .resetbarb {
   border: 1px solid black;
- margin-top: 30px;
- height: 50px;
- display: flex;
- justify-content: center;
- align-items: center;
+  margin-top: 30px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .clicktarget {
-  height: 500px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.clicktargettop {
+  display: flex;
+  flex-direction: column;
 }
 
 .barbarianstate {
   font-size: 48px;
+  margin-bottom: 100px;
+  justify-self: end;
+}
+
+.totalresult {
+  font-size: 72px;
+}
+
+.eventdiceresult {
+  font-size: 64px;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+.green {
+  color: green;
+}
+
+.yellow {
+  color: #ffdb58;
+}
+
+.blue {
+  color: blue;
 }
